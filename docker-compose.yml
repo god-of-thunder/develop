@@ -15,12 +15,11 @@ services:
     command: ["--init-file=/tmp/mysql-init.sql", "--default-authentication-plugin=mysql_native_password"]
     restart: always
     environment:
-      MYSQL_DATABASE: 'db'
-      #MYSQL_NATIVE_PASSWORD: '123456'
+      MYSQL_NATIVE_PASSWORD: '123456'
       MYSQL_ROOT_PASSWORD: '123456'
       MYSQL_PASSWORD: '123456'
-      #MYSQL_ROOT_HOST: '%'
-      #MYSQL_HOST: '%'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_HOST: '%'
       MYSQL_USER: 'root'
     volumes:
       - ./db_dir:/var/lib/mysql
