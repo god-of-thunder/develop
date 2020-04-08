@@ -122,9 +122,9 @@ class PttSpider(scrapy.Spider):
 
                     comment_time_list[0] = comment_time_list[0].split("=\'")
 
-                    comment_time_list[0] = comment_time_list[0][-1].replace("\\n'>", '')
+                    comment_time_list[0] = comment_time_list[0][-1].replace("\\n'>", '').strip()
 
-                comment_time_list[0] = comment_time_list[0].strip() + ' ' + time.ctime(time.time()).split(' ')[5]
+                comment_time_list[0] = comment_time_list[0] + ' ' + time.ctime(time.time()).split(' ')[5]
 
                 item['comment_time'] = round(time.mktime(time.strptime(comment_time_list[0], "%m/%d %H:%M %Y")))
 
