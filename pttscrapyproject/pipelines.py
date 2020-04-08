@@ -52,9 +52,7 @@ class PttscrapyprojectPipeline(object):
     # SQL语句在这里
     def _conditional_insert(self, tx, item):
 
-        sql = "insert into test_db."+str(item['category_db'])+"(author_id,author_name,title_name,published_time,content_text,canonical_url,created_time,update_time,comment_id,comment_text,comment_time) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        #sql = "insert into test_db." + str(item['category_db']) + "(author_id,author_name,title_name,published_time,content_text,canonical_url,created_time,update_time,comment_id,comment_text) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        #params = (item['author_id'], item['author_name'], item['title_name'], item['published_time'], item['content_text'],item['canonical_url'], item['created_time'], item['update_time'],item['comment_id'],item['comment_text'])
+        sql = "insert into ptt."+str(item['category_db'])+"(author_id,author_name,title_name,published_time,content_text,canonical_url,created_time,update_time,comment_id,comment_text,comment_time) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         params = (item['author_id'], item['author_name'], item['title_name'], item['published_time'],item['content_text'],item['canonical_url'],item['created_time'],item['update_time'],item['comment_id'],item['comment_text'],item['comment_time'])
         tx.execute(sql, params)
 
