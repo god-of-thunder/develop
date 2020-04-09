@@ -92,7 +92,7 @@ ITEM_PIPELINES = {
 #Mysql数据库的配置信息
 MYSQL_HOST = 'db'
 MYSQL_DBNAME = 'ptt'         #数据库名字，请修改
-MYSQL_USER = 'admin'             #数据库账号，请修改(務必是可以從外部連結的帳號且sql權限可以insert)
+MYSQL_USER = 'root'             #数据库账号，请修改(務必是可以從外部連結的帳號且sql權限可以insert)
 MYSQL_PASSWD = '123456'         #数据库密码，请修改
 
 MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
