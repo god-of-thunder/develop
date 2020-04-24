@@ -36,19 +36,18 @@ class PttSpider(scrapy.Spider):
         item = PttscrapyprojectItem()
 
         item['canonical_url'] = response.url.strip()
-        
-        titles_list = response.xpath('//*[@id="main-content"]/div[3]/span[2]/text()').extract()
-        
-        try:
 
+        titles_list = response.xpath('//*[@id="main-content"]/div[3]/span[2]/text()').extract()
+
+        try:
             for item['title_name'] in titles_list:
 
                 item['title_name'] = item['title_name'].split(':')[0].strip()
 
                 item['title_name'] = item['title_name'].split(']')[1].strip()
-                
+
             author_list = response.xpath('//*[@id="main-content"]/div[1]/span[2]/text()').extract()
-                
+
             for item['author_id'] in author_list:
 
                 item['author_id'] = item['author_id'].split('(')[0].strip()
@@ -57,8 +56,6 @@ class PttSpider(scrapy.Spider):
 
                 item['author_name'] = item['author_name'].split('(')[1].replace(')', '').strip()
 
-
-            
             item['created_time'] = time.strftime("%Y-%m-%dT%H:%M:%S.020+00:00",time.gmtime(time.time()))
 
             item['update_time'] = time.strftime("%Y-%m-%dT%H:%M:%S.020+00:00", time.gmtime(time.time()))
@@ -122,7 +119,7 @@ class PttSpider(scrapy.Spider):
 
                 for e in range(len(comment_time_list)):
 
-                    comment_time_list[e] = str(comment_time_list[e]).strip()
+                    comment_time_list[e] = str(comment_time_list[e])
 
                     comment_time_list[0] = comment_time_list[0].split("=\'")
 
@@ -153,4 +150,6 @@ class PttSpider(scrapy.Spider):
         except IndexError:
 
             print('------------------------------------------此文章被刪除-----------------------------------------')
+
+
 
