@@ -36,9 +36,19 @@ class PttSpider(scrapy.Spider):
         item = PttscrapyprojectItem()
 
         item['canonical_url'] = response.url.strip()
-
-        author_list = response.xpath('//*[@id="main-content"]/div[1]/span[2]/text()').extract()
+        
+        titles_list = response.xpath('//*[@id="main-content"]/div[3]/span[2]/text()').extract()
+        
         try:
+
+            for item['title_name'] in titles_list:
+
+                item['title_name'] = item['title_name'].split(':')[0].strip()
+
+                item['title_name'] = item['title_name'].split(']')[1].strip()
+                
+            author_list = response.xpath('//*[@id="main-content"]/div[1]/span[2]/text()').extract()
+                
             for item['author_id'] in author_list:
 
                 item['author_id'] = item['author_id'].split('(')[0].strip()
@@ -48,13 +58,7 @@ class PttSpider(scrapy.Spider):
                 item['author_name'] = item['author_name'].split('(')[1].replace(')', '').strip()
 
 
-            titles_list = response.xpath('//*[@id="main-content"]/div[3]/span[2]/text()').extract()
-
-            for item['title_name'] in titles_list:
-
-                item['title_name'] = item['title_name'].split(':')[0].strip()
-
-                item['title_name'] = item['title_name'].split(']')[1].strip()
+            
             item['created_time'] = time.strftime("%Y-%m-%dT%H:%M:%S.020+00:00",time.gmtime(time.time()))
 
             item['update_time'] = time.strftime("%Y-%m-%dT%H:%M:%S.020+00:00", time.gmtime(time.time()))
@@ -124,7 +128,7 @@ class PttSpider(scrapy.Spider):
 
                     comment_time_list[0] = comment_time_list[0][-1].replace("\\n'>", '').strip()
 
-                comment_time_list[0] = comment_time_list[0] + ' ' + time.ctime(time.time()).split(' ')[5]
+                comment_time_list[0] = comment_time_list[0] + ' ' + time.ctime(time.time()).split(' ')[4]
 
                 item['comment_time'] = round(time.mktime(time.strptime(comment_time_list[0], "%m/%d %H:%M %Y")))
 
@@ -140,7 +144,7 @@ class PttSpider(scrapy.Spider):
 
                     comment_time = comment_time.join(comment_time_list[f])
 
-                    comment_time = comment_time + ' ' + time.ctime(time.time()).split(' ')[5]
+                    comment_time = comment_time + ' ' + time.ctime(time.time()).split(' ')[4]
 
                 item['comment_time'] = round(time.mktime(time.strptime(comment_time, "%m/%d %H:%M %Y")))
 
